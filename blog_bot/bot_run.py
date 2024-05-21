@@ -33,23 +33,22 @@ async def command_start_handler(message: Message) -> None:
 
 @dp.message(Command('posts'))
 async def posts_handler(message: Message) -> None:
-    datas = get_posts()
-    await message.answer(f'{datas}')
-
-
-@dp.message()
-async def echo_handler(message: Message) -> None:
-    """
-    Handler will forward receive a message back to the sender
-
-    By default, message handler will handle all message types (like a text, photo, sticker etc.)
-    """
     try:
-        # Send a copy of the received message
-        await message.send_copy(chat_id=message.chat.id)
-    except TypeError:
-        # But not all the types is supported to be copied so need to handle it
-        await message.answer("Nice try!")
+        datas = get_posts()
+        if datas:
+            for data in datas:
+                text = (f"title: {data['title']}\n"
+                        f"content: {data['content']}\n"
+                        f"rasm: <a href='{data['image']}'>Rasm</a>\n")
+                if data['image']:
+                    await message.answer_photo(photo=data['image'], caption=text)
+                else:
+                    await message.answer(text)
+        else:
+            await message.answer("Ma'lumot kiritung: ")
+    except ConnectionError as e:
+        await message.answer("Nice Try! ")
+
 
 
 async def main() -> None:

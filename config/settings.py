@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'rest_framework',  # new
     'django.contrib.staticfiles',  # required for serving swagger ui's css/js files
     'drf_yasg',  # new
-    'corsheaders'  # new
+    'corsheaders',  # new
+    'rest_framework.authtoken'  # new
 ]
 
 REST_FRAMEWORK = {
