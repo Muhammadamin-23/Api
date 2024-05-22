@@ -50,7 +50,6 @@ async def posts_handler(message: Message) -> None:
         await message.answer("Nice Try! ")
 
 
-
 async def main() -> None:
     # Initialize Bot instance with default bot properties which will be passed to all API calls
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
