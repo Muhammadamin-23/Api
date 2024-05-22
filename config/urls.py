@@ -17,8 +17,6 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
 from rest_framework.authtoken import views
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
@@ -45,9 +43,10 @@ class CustomAuthToken(ObtainAuthToken):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api/v1/', include('blog.urls')),
+    path('api/v1/', include('blog.urls')),  # new
     path('api-token-auth/', views.obtain_auth_token),  # new
     path('api-token-auth/', CustomAuthToken.as_view())  # new
 ]
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # new
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # new
