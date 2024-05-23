@@ -1,11 +1,10 @@
-from django.conf.urls.static import static
 from django.urls import path, include
 from rest_framework import routers
+from blog.views import UserLoginAPIView, UserLogoutAPIView, UserRegisterAPIView
+from drf_yasg import openapi
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
 from blog.views import UserViewSet, PostViewSet
-from config import settings
 
 # Routers
 router = routers.DefaultRouter()
@@ -24,7 +23,7 @@ schema_view = get_schema_view(
         default_version='v1',
         description="Post Description",
         terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="muhammadaminabduhakimov2000@gmail.com"),
+        contact=openapi.Contact(email="iamsolijonovasadbek@gmail.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
@@ -37,5 +36,7 @@ urlpatterns = [
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path("login/", UserLoginAPIView.as_view(), name="user_login"),
+    path("register/", UserRegisterAPIView().as_view(), name="user_register"),
+    path("logout/", UserLogoutAPIView.as_view(), name="user_logout")
 ]
-
